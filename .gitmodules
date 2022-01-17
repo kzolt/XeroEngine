@@ -1,0 +1,3 @@
+[submodule "Xero/vendor/spdlog"]
+	path = Xero/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
