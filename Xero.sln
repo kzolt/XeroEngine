@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Xero", "Xero\Xero.vcxproj", "{BD8C294A-2440-4000-962E-6CFC3ED9C378}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{FF3D2DCD-7FCD-4010-8342-E339064030BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD8C294A-2440-4000-962E-6CFC3ED9C378}.Debug|x64.ActiveCfg = Debug|x64
+		{BD8C294A-2440-4000-962E-6CFC3ED9C378}.Debug|x64.Build.0 = Debug|x64
+		{BD8C294A-2440-4000-962E-6CFC3ED9C378}.Release|x64.ActiveCfg = Release|x64
+		{BD8C294A-2440-4000-962E-6CFC3ED9C378}.Release|x64.Build.0 = Release|x64
+		{FF3D2DCD-7FCD-4010-8342-E339064030BF}.Debug|x64.ActiveCfg = Debug|x64
+		{FF3D2DCD-7FCD-4010-8342-E339064030BF}.Debug|x64.Build.0 = Debug|x64
+		{FF3D2DCD-7FCD-4010-8342-E339064030BF}.Release|x64.ActiveCfg = Release|x64
+		{FF3D2DCD-7FCD-4010-8342-E339064030BF}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09A2B908-72D7-4410-928A-311CAE333564}
+	EndGlobalSection
+EndGlobal
