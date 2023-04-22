@@ -1,3 +1,4 @@
+#include "xopch.h"
 #include "Application.h"
 #include "Log.h"
 
