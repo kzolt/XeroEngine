@@ -10,6 +10,11 @@ workspace "Xero"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Xero/vendor/GLFW/include"
+
+include "Xero/vendor/GLFW"
+
 project "Xero"
 	location "Xero"
 	kind "StaticLib"
@@ -21,10 +26,16 @@ project "Xero"
 	pchheader "xopch.h"
 	pchsource "Xero/src/xopch.cpp"
 
+	links
+	{
+		"GLFW"
+	}
+
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
-		"Xero/src/Xero"
+		"Xero/src",
+		"%{IncludeDir.GLFW}"
 	}
 
 	files 
@@ -65,7 +76,8 @@ project "Sandbox"
 
 	links 
 	{
-		"Xero"
+		"Xero",
+		
 	}
 
 	includedirs

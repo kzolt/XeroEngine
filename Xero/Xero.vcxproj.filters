@@ -10,19 +10,37 @@
     <Filter Include="Xero\Events">
       <UniqueIdentifier>{27A4DE76-9359-576C-1C4E-514388024E70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Xero\Platform">
+      <UniqueIdentifier>{575136C5-C311-B2FB-8C4C-FB78F8CBF6D7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xero\Platform\Windows">
+      <UniqueIdentifier>{91624F17-FDCE-0A12-C6C2-A26F32EE2C7A}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Xero.h" />
     <ClInclude Include="src\Xero\Core\Application.h">
       <Filter>Xero\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Xero\Core\Base.h">
+    <ClInclude Include="src\Xero\Core\Assert.h">
+      <Filter>Xero\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Core\Core.h">
       <Filter>Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Core\Entrypoint.h">
       <Filter>Xero\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Xero\Core\KeyCodes.h">
+      <Filter>Xero\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Xero\Core\Log.h">
+      <Filter>Xero\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Core\Ref.h">
+      <Filter>Xero\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Core\Window.h">
       <Filter>Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Events\ApplicationEvent.h">
@@ -37,7 +55,12 @@
     <ClInclude Include="src\Xero\Events\MouseEvent.h">
       <Filter>Xero\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Xero\Platform\Windows\WindowsWindow.h">
+      <Filter>Xero\Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\xopch.h" />
+    <ClInclude Include="src\Xero\Core\Layer.h" />
+    <ClInclude Include="src\Xero\Core\LayerStack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Xero\Core\Application.cpp">
@@ -46,6 +69,11 @@
     <ClCompile Include="src\Xero\Core\Log.cpp">
       <Filter>Xero\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Xero\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Xero\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\xopch.cpp" />
+    <ClCompile Include="src\Xero\Core\Layer.cpp" />
+    <ClCompile Include="src\Xero\Core\LayerStack.cpp" />
   </ItemGroup>
 </Project>

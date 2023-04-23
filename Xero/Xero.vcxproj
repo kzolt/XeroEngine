@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>xopch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>XO_PLATFORM_WINDOWS;XO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src\Xero;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -94,7 +94,7 @@
       <PrecompiledHeaderFile>xopch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>XO_PLATFORM_WINDOWS;XO_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src\Xero;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -115,7 +115,7 @@
       <PrecompiledHeaderFile>xopch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>XO_PLATFORM_WINDOWS;XO_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src\Xero;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -133,21 +133,36 @@
   <ItemGroup>
     <ClInclude Include="src\Xero.h" />
     <ClInclude Include="src\Xero\Core\Application.h" />
-    <ClInclude Include="src\Xero\Core\Base.h" />
+    <ClInclude Include="src\Xero\Core\Assert.h" />
+    <ClInclude Include="src\Xero\Core\Core.h" />
     <ClInclude Include="src\Xero\Core\Entrypoint.h" />
+    <ClInclude Include="src\Xero\Core\KeyCodes.h" />
+    <ClInclude Include="src\Xero\Core\Layer.h" />
+    <ClInclude Include="src\Xero\Core\LayerStack.h" />
     <ClInclude Include="src\Xero\Core\Log.h" />
+    <ClInclude Include="src\Xero\Core\Ref.h" />
+    <ClInclude Include="src\Xero\Core\Window.h" />
     <ClInclude Include="src\Xero\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Xero\Events\Event.h" />
     <ClInclude Include="src\Xero\Events\KeyEvent.h" />
     <ClInclude Include="src\Xero\Events\MouseEvent.h" />
+    <ClInclude Include="src\Xero\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\xopch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Xero\Core\Application.cpp" />
+    <ClCompile Include="src\Xero\Core\Layer.cpp" />
+    <ClCompile Include="src\Xero\Core\LayerStack.cpp" />
     <ClCompile Include="src\Xero\Core\Log.cpp" />
+    <ClCompile Include="src\Xero\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\xopch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
+      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
