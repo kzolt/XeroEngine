@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "Log.h"
 
+#include "Xero/Platform/Vulkan/VulkanSwapchain.h"
+
 namespace Xero {
 
 	#define BIND_EVENT_FN(fn) std::bind(&Application::##fn, this, std::placeholders::_1)
@@ -28,10 +30,12 @@ namespace Xero {
 	{
 		while (m_Running)
 		{
+			m_Window->ProcessEvent();
+
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
-			m_Window->ProcessEvent();
+			m_Window->GetSwapchain().BeginFrame();
 			m_Window->SwapBuffers();
 		}
 	}

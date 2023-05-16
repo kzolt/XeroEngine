@@ -137,7 +137,7 @@ namespace Xero {
 		// Initialize VulkanMemoryAllocator
 		VmaAllocatorCreateInfo allocatorInfo = {};
 		allocatorInfo.vulkanApiVersion = VK_API_VERSION_1_3;
-		allocatorInfo.physicalDevice = device->GetPhysicalDevice()->GetVulkanPhysicalDeivce();
+		allocatorInfo.physicalDevice = device->GetPhysicalDevice()->GetVulkanPhysicalDevice();
 		allocatorInfo.device = device->GetVulkanDevice();
 		allocatorInfo.instance = VulkanContext::GetInstance();
 

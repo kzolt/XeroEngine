@@ -10,6 +10,8 @@ namespace Xero {
 		virtual void Begin() = 0;
 		virtual void End() = 0;
 
+		void SetDarkThemeColors();
+
 		static ImGuiLayer* Create();
 	};
 

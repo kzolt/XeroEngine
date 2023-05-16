@@ -27,7 +27,7 @@ namespace Xero {
 		bool IsExtensionSupported(const std::string& extensionName) const;
 		uint32_t GetMemoryTypeIndex(uint32_t typeBits, VkMemoryPropertyFlags properties) const;
 
-		VkPhysicalDevice GetVulkanPhysicalDeivce() const { return m_PhysicalDevice; }
+		VkPhysicalDevice GetVulkanPhysicalDevice() const { return m_PhysicalDevice; }
 		const QueueFamilyIndices& GetQueueFamilyIndices() const { return m_QueueFamilyIndices; }
 
 		const VkPhysicalDeviceMemoryProperties& GetMemoryProperties() const { return m_MemoryProperties; }

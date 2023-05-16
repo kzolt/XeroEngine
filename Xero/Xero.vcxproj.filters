@@ -108,8 +108,14 @@
     <ClInclude Include="src\Xero\Platform\Vulkan\VulkanImGuiLayer.h">
       <Filter>src\Xero\Platform\Vulkan</Filter>
     </ClInclude>
+    <ClInclude Include="src\Xero\Platform\Vulkan\VulkanSwapchain.h">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
+    </ClInclude>
     <ClInclude Include="src\Xero\Platform\Windows\WindowsWindow.h">
       <Filter>src\Xero\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Renderer\Renderer.h">
+      <Filter>src\Xero\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Renderer\RendererAPI.h">
       <Filter>src\Xero\Renderer</Filter>
@@ -123,7 +129,6 @@
     <ClInclude Include="src\xopch.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Xero\Platform\Vulkan\VulkanSwapchain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Xero\Core\Application.cpp">
@@ -159,8 +164,17 @@
     <ClCompile Include="src\Xero\Platform\Vulkan\VulkanImGuiLayer.cpp">
       <Filter>src\Xero\Platform\Vulkan</Filter>
     </ClCompile>
+    <ClCompile Include="src\Xero\Platform\Vulkan\VulkanSwapchain.cpp">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
+    </ClCompile>
     <ClCompile Include="src\Xero\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Xero\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Renderer\Renderer.cpp">
+      <Filter>src\Xero\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Renderer\RendererAPI.cpp">
+      <Filter>src\Xero\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Xero\Renderer\RendererContext.cpp">
       <Filter>src\Xero\Renderer</Filter>
@@ -174,7 +188,5 @@
     <ClCompile Include="vendor\Vulkan\Include\vma\vk_mem_alloc.cpp">
       <Filter>vendor\Vulkan\Include\vma</Filter>
     </ClCompile>
-    <ClCompile Include="src\Xero\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Xero\Platform\Vulkan\VulkanSwapchain.cpp" />
   </ItemGroup>
 </Project>

@@ -171,7 +171,7 @@ namespace Xero {
 
 	void WindowsWindow::SwapBuffers()
 	{
-		
+		m_Swapchain.Present();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
