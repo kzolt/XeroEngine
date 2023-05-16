@@ -2,11 +2,7 @@
 
 #include <stdint.h>
 
-namespace Mocha {
-
-	//////////////////////////////////////////////////////////////////////////////////
-	// Ref Counting
-	//////////////////////////////////////////////////////////////////////////////////
+namespace Xero {
 
 	class RefCounted
 	{
@@ -25,15 +21,16 @@ namespace Mocha {
 		mutable uint32_t m_RefCount = 0; // TODO: atomic
 	};
 
-	//////////////////////////////////////////////////////////////////////////////////
-	// Ref Object
-	//////////////////////////////////////////////////////////////////////////////////
+	namespace RefUtils {
+		void AddToLiveReferences(void* instance);
+		void RemoveFromLiveReferences(void* instance);
+		bool IsLive(void* instance);
+	}
 
 	template<typename T>
 	class Ref
 	{
 	public:
-		// Constructors
 		Ref()
 			: m_Instance(nullptr)
 		{
@@ -52,20 +49,23 @@ namespace Mocha {
 			IncRef();
 		}
 
-		// TODO: Fix Deletion of Temporary Refs, Currently Deleting Original
 		template<typename T2>
 		Ref(const Ref<T2>& other)
 		{
-			m_Instance = other.m_Instance;
-			IncRef();
+			m_Instance = (T*)other.m_Instance;
 			IncRef();
 		}
 
 		template<typename T2>
 		Ref(Ref<T2>&& other)
 		{
-			m_Instance = other.m_Instance;
+			m_Instance = (T*)other.m_Instance;
 			other.m_Instance = nullptr;
+		}
+
+		~Ref()
+		{
+			DecRef();
 		}
 
 		Ref(const Ref<T>& other)
@@ -74,13 +74,6 @@ namespace Mocha {
 			IncRef();
 		}
 
-		// Destructors
-		~Ref()
-		{
-			DecRef();
-		}
-
-		// Operators
 		Ref& operator=(std::nullptr_t)
 		{
 			DecRef();
@@ -126,7 +119,6 @@ namespace Mocha {
 		T& operator*() { return *m_Instance; }
 		const T& operator*() const { return *m_Instance; }
 
-		// Data Manipulation
 		T* Raw() { return  m_Instance; }
 		const T* Raw() const { return  m_Instance; }
 
@@ -136,13 +128,17 @@ namespace Mocha {
 			m_Instance = instance;
 		}
 
-		// Creation
+		template<typename T2>
+		Ref<T2> As() const
+		{
+			return Ref<T2>(*this);
+		}
+
 		template<typename... Args>
 		static Ref<T> Create(Args&&... args)
 		{
 			return Ref<T>(new T(std::forward<Args>(args)...));
 		}
-
 	private:
 		void IncRef() const
 		{
@@ -156,15 +152,36 @@ namespace Mocha {
 			{
 				m_Instance->DecRefCount();
 				if (m_Instance->GetRefCount() == 0)
+				{
 					delete m_Instance;
+				}
 			}
 		}
 
 		template<class T2>
 		friend class Ref;
-
 		T* m_Instance;
 	};
 
-	// TODO: WeakRef
+	template<typename T>
+	class WeakRef
+	{
+	public:
+		WeakRef() = default;
+
+		WeakRef(Ref<T> ref)
+		{
+			m_Instance = ref.Raw();
+		}
+
+		WeakRef(T* instance)
+		{
+			m_Instance = instance;
+		}
+
+		bool IsValid() const { return m_Instance ? RefUtils::IsLive(m_Instance) : false; }
+		operator bool() const { return IsValid(); }
+	private:
+		T* m_Instance = nullptr;
+	};
 }

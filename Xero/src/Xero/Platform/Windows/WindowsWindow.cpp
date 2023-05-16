@@ -1,9 +1,13 @@
 #include "xopch.h"
 #include "WindowsWindow.h"
 
+#include <GLFW/glfw3.h>
+
 #include "Xero/Events/ApplicationEvent.h"
 #include "Xero/Events/KeyEvent.h"
 #include "Xero/Events/MouseEvent.h"
+
+#include "Xero/Renderer/RendererContext.h"
 
 namespace Xero {
 
@@ -52,8 +56,9 @@ namespace Xero {
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
-		// TODO: Set VulkanContext
 		glfwSetWindowUserPointer(m_Window, &m_Data);
+		m_RendererContext = RendererContext::Create();
+		m_RendererContext->Init();
 
 		// GLFW callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
@@ -152,10 +157,14 @@ namespace Xero {
 		glfwDestroyWindow(m_Window);
 	}
 
-	void WindowsWindow::OnUpdate()
+	void WindowsWindow::ProcessEvent()
 	{
 		glfwPollEvents();
-		// SwapBuffers
+	}
+
+	void WindowsWindow::SwapBuffers()
+	{
+
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
@@ -166,11 +175,6 @@ namespace Xero {
 			glfwSwapInterval(0);
 
 		m_Data.VSync = enabled;
-	}
-
-	bool WindowsWindow::IsVSync() const
-	{
-		return m_Data.VSync;
 	}
 
 }

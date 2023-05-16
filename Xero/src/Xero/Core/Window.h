@@ -4,8 +4,11 @@
 
 #include "Xero/Core/Core.h"
 #include "Xero/Events/Event.h"
+#include "Xero/Renderer/RendererContext.h"
 
 namespace Xero {
+
+	class VulkanSwapchain;
 
 	struct WindowProps
 	{
@@ -25,7 +28,8 @@ namespace Xero {
 
 		virtual ~Window() {}
 
-		virtual void OnUpdate() = 0;
+		virtual void ProcessEvent() = 0;
+		virtual void SwapBuffers() = 0;
 
 		virtual uint32_t GetWidth() const = 0;
 		virtual uint32_t GetHeight() const = 0;
@@ -35,6 +39,9 @@ namespace Xero {
 		virtual bool IsVSync() const = 0;
 
 		virtual void* GetNativeWindow() const = 0;
+
+		virtual Ref<RendererContext> GetRendererContext() = 0;
+		//virtual VulkanSwapchain& GetSwapchain() = 0;
 
 		static Scope<Window> Create(const WindowProps& = WindowProps());
 	};

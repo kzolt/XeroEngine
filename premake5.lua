@@ -12,8 +12,14 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Xero/vendor/GLFW/include"
+IncludeDir["ImGui"] = "Xero/vendor/ImGui"
+IncludeDir["Vulkan"] = "Xero/vendor/Vulkan/Include"
+
+LibraryDir = {}
+LibraryDir["Vulkan"] = "vendor/Vulkan/Lib/vulkan-1.lib"
 
 include "Xero/vendor/GLFW"
+include "Xero/vendor/ImGui"
 
 project "Xero"
 	location "Xero"
@@ -28,20 +34,27 @@ project "Xero"
 
 	links
 	{
-		"GLFW"
+		"GLFW",
+		"ImGui",
+
+		"%{LibraryDir.Vulkan}"
 	}
 
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
 		"Xero/src",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.Vulkan}"
 	}
 
 	files 
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+
+		"%{prj.name}/vendor/Vulkan/Include/vma/**.cpp"
 	}
 
 	filter "system:windows"

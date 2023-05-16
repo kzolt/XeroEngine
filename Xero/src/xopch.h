@@ -12,6 +12,10 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Xero/Core/Core.h"
+#include "Xero/Core/Application.h"
+#include "Xero/Core/Ref.h"
+
 #ifdef XO_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

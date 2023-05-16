@@ -1,79 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Xero">
-      <UniqueIdentifier>{A30D8F7C-8F44-900D-3831-761024470C0F}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Xero\Core">
-      <UniqueIdentifier>{DB2FB180-479A-65F7-90D8-169DFC81434C}</UniqueIdentifier>
+    <Filter Include="src\Xero">
+      <UniqueIdentifier>{1A2D28CF-06FA-82DA-2F13-71821B3FB868}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Xero\Events">
-      <UniqueIdentifier>{27A4DE76-9359-576C-1C4E-514388024E70}</UniqueIdentifier>
+    <Filter Include="src\Xero\Core">
+      <UniqueIdentifier>{B2916BC0-1E52-E7F6-E78C-3074530C2CD3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Xero\Platform">
-      <UniqueIdentifier>{575136C5-C311-B2FB-8C4C-FB78F8CBF6D7}</UniqueIdentifier>
+    <Filter Include="src\Xero\Events">
+      <UniqueIdentifier>{BED7B88E-2A63-2653-3374-A9479F7E8253}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Xero\Platform\Windows">
-      <UniqueIdentifier>{91624F17-FDCE-0A12-C6C2-A26F32EE2C7A}</UniqueIdentifier>
+    <Filter Include="src\Xero\ImGui">
+      <UniqueIdentifier>{C48D48CE-B05B-3CD4-99EF-ACFA855C1839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Xero\Platform">
+      <UniqueIdentifier>{AEC66B3C-1ADD-69D2-6354-F5F3CFA93A5A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Xero\Platform\Vulkan">
+      <UniqueIdentifier>{6EC47E28-5AE9-CDA8-8334-B3386FB8CCC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Xero\Platform\Windows">
+      <UniqueIdentifier>{E83E7469-5401-A8F3-9DB1-368009B380D1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Xero\Renderer">
+      <UniqueIdentifier>{00CE4817-6CE4-46AD-B55B-D2CE21B11735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Xero\Utils">
+      <UniqueIdentifier>{FA1926CF-E6E7-19D5-CF7B-8AFBBBE8F539}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\Vulkan">
+      <UniqueIdentifier>{D3F918DF-3FBA-9415-08F5-DD927474D9F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\Vulkan\Include">
+      <UniqueIdentifier>{26ACD8DE-9218-94D9-5B0C-2C37C737B641}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\Vulkan\Include\vma">
+      <UniqueIdentifier>{59191AB6-C5DB-4D40-0E8C-DCCC7A8D261E}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Xero.h" />
+    <ClInclude Include="src\Xero.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\Xero\Core\Application.h">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Core\Assert.h">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Core\Core.h">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Core\Entrypoint.h">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Core\KeyCodes.h">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Core\Layer.h">
+      <Filter>src\Xero\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Core\LayerStack.h">
+      <Filter>src\Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Core\Log.h">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Core\Ref.h">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Core\Window.h">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Events\ApplicationEvent.h">
-      <Filter>Xero\Events</Filter>
+      <Filter>src\Xero\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Events\Event.h">
-      <Filter>Xero\Events</Filter>
+      <Filter>src\Xero\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Events\KeyEvent.h">
-      <Filter>Xero\Events</Filter>
+      <Filter>src\Xero\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Events\MouseEvent.h">
-      <Filter>Xero\Events</Filter>
+      <Filter>src\Xero\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\ImGui\ImGuiLayer.h">
+      <Filter>src\Xero\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Platform\Vulkan\Vulkan.h">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Platform\Vulkan\VulkanAllocator.h">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Platform\Vulkan\VulkanContext.h">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Platform\Vulkan\VulkanDevice.h">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Platform\Vulkan\VulkanImGuiLayer.h">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
     </ClInclude>
     <ClInclude Include="src\Xero\Platform\Windows\WindowsWindow.h">
-      <Filter>Xero\Platform\Windows</Filter>
+      <Filter>src\Xero\Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\xopch.h" />
-    <ClInclude Include="src\Xero\Core\Layer.h" />
-    <ClInclude Include="src\Xero\Core\LayerStack.h" />
+    <ClInclude Include="src\Xero\Renderer\RendererAPI.h">
+      <Filter>src\Xero\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Renderer\RendererContext.h">
+      <Filter>src\Xero\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Xero\Utils\StringUtils.h">
+      <Filter>src\Xero\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\xopch.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Xero\Core\Application.cpp">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Core\Layer.cpp">
+      <Filter>src\Xero\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Core\LayerStack.cpp">
+      <Filter>src\Xero\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Xero\Core\Log.cpp">
-      <Filter>Xero\Core</Filter>
+      <Filter>src\Xero\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Core\Ref.cpp">
+      <Filter>src\Xero\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\ImGui\ImGuiBuild.cpp">
+      <Filter>src\Xero\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\ImGui\ImGuiLayer.cpp">
+      <Filter>src\Xero\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Platform\Vulkan\VulkanAllocator.cpp">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Platform\Vulkan\VulkanContext.cpp">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Platform\Vulkan\VulkanDevice.cpp">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Platform\Vulkan\VulkanImGuiLayer.cpp">
+      <Filter>src\Xero\Platform\Vulkan</Filter>
     </ClCompile>
     <ClCompile Include="src\Xero\Platform\Windows\WindowsWindow.cpp">
-      <Filter>Xero\Platform\Windows</Filter>
+      <Filter>src\Xero\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\xopch.cpp" />
-    <ClCompile Include="src\Xero\Core\Layer.cpp" />
-    <ClCompile Include="src\Xero\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Xero\Renderer\RendererContext.cpp">
+      <Filter>src\Xero\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Utils\StringUtils.cpp">
+      <Filter>src\Xero\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xopch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\Vulkan\Include\vma\vk_mem_alloc.cpp">
+      <Filter>vendor\Vulkan\Include\vma</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Xero\Renderer\RendererAPI.cpp" />
   </ItemGroup>
 </Project>
