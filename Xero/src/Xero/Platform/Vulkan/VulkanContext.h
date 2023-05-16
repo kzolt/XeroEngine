@@ -7,6 +7,7 @@
 #include "VulkanDevice.h"
 #include "VulkanAllocator.h"
 
+
 namespace Xero {
 
 	class VulkanContext : public RendererContext

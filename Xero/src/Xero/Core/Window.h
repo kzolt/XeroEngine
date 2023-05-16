@@ -41,7 +41,7 @@ namespace Xero {
 		virtual void* GetNativeWindow() const = 0;
 
 		virtual Ref<RendererContext> GetRendererContext() = 0;
-		//virtual VulkanSwapchain& GetSwapchain() = 0;
+		virtual VulkanSwapchain& GetSwapchain() = 0;
 
 		static Scope<Window> Create(const WindowProps& = WindowProps());
 	};

@@ -161,6 +161,7 @@
     <ClInclude Include="src\Xero\Platform\Vulkan\VulkanContext.h" />
     <ClInclude Include="src\Xero\Platform\Vulkan\VulkanDevice.h" />
     <ClInclude Include="src\Xero\Platform\Vulkan\VulkanImGuiLayer.h" />
+    <ClInclude Include="src\Xero\Platform\Vulkan\VulkanSwapchain.h" />
     <ClInclude Include="src\Xero\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Xero\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Xero\Renderer\RendererContext.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="src\Xero\Platform\Vulkan\VulkanContext.cpp" />
     <ClCompile Include="src\Xero\Platform\Vulkan\VulkanDevice.cpp" />
     <ClCompile Include="src\Xero\Platform\Vulkan\VulkanImGuiLayer.cpp" />
+    <ClCompile Include="src\Xero\Platform\Vulkan\VulkanSwapchain.cpp" />
     <ClCompile Include="src\Xero\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Xero\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Xero\Renderer\RendererContext.cpp" />

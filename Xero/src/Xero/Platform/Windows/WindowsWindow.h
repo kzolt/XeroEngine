@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Xero/Core/Window.h"
+#include "Xero/Platform/Vulkan/VulkanSwapchain.h"
 
 class GLFWwindow;
 
@@ -24,7 +25,7 @@ namespace Xero {
 
 		inline virtual void* GetNativeWindow() const override { return m_Window; }
 		virtual Ref<RendererContext> GetRendererContext() override { return m_RendererContext; }
-		//virtual VulkanSwapchain& GetSwapchain() override { return m_Swapchain; }
+		virtual VulkanSwapchain& GetSwapchain() override { return m_Swapchain; }
 
 	private:
 		virtual void Init(const WindowProps& props);
@@ -45,5 +46,6 @@ namespace Xero {
 		WindowData m_Data;
 
 		Ref<RendererContext> m_RendererContext;
+		VulkanSwapchain m_Swapchain;
 	};
 }

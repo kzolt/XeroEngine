@@ -123,6 +123,7 @@
     <ClInclude Include="src\xopch.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Xero\Platform\Vulkan\VulkanSwapchain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Xero\Core\Application.cpp">
@@ -174,5 +175,6 @@
       <Filter>vendor\Vulkan\Include\vma</Filter>
     </ClCompile>
     <ClCompile Include="src\Xero\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Xero\Platform\Vulkan\VulkanSwapchain.cpp" />
   </ItemGroup>
 </Project>

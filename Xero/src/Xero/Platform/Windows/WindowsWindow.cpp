@@ -8,6 +8,7 @@
 #include "Xero/Events/MouseEvent.h"
 
 #include "Xero/Renderer/RendererContext.h"
+#include "Xero/Platform/Vulkan/VulkanContext.h"
 
 namespace Xero {
 
@@ -59,6 +60,12 @@ namespace Xero {
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		m_RendererContext = RendererContext::Create();
 		m_RendererContext->Init();
+
+		Ref<VulkanContext> context = m_RendererContext.As<VulkanContext>();
+		m_Swapchain.Init(VulkanContext::GetInstance(), context->GetDevice());
+		m_Swapchain.InitSurface(m_Window);
+
+		m_Swapchain.Create(&m_Data.Width, &m_Data.Height);
 
 		// GLFW callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
@@ -164,7 +171,7 @@ namespace Xero {
 
 	void WindowsWindow::SwapBuffers()
 	{
-
+		
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
