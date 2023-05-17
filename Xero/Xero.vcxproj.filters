@@ -129,6 +129,7 @@
     <ClInclude Include="src\xopch.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Xero\Core\Input.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Xero\Core\Application.cpp">
@@ -188,5 +189,6 @@
     <ClCompile Include="vendor\Vulkan\Include\vma\vk_mem_alloc.cpp">
       <Filter>vendor\Vulkan\Include\vma</Filter>
     </ClCompile>
+    <ClCompile Include="src\Xero\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

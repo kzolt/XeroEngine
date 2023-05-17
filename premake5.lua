@@ -1,5 +1,6 @@
 workspace "Xero"
 	architecture "x64"
+	startproject "Xenith"
 
 	configurations
 	{
@@ -18,9 +19,12 @@ IncludeDir["Vulkan"] = "Xero/vendor/Vulkan/Include"
 LibraryDir = {}
 LibraryDir["Vulkan"] = "vendor/Vulkan/Lib/vulkan-1.lib"
 
+group "Dependencies"
 include "Xero/vendor/GLFW"
 include "Xero/vendor/ImGui"
+group ""
 
+group "Core"
 project "Xero"
 	location "Xero"
 	kind "StaticLib"
@@ -78,9 +82,11 @@ project "Xero"
 	filter "configurations:Dist"
 		defines "XO_DIST"
 		optimize "On"
+group ""
 
-project "Sandbox"
-	location "Sandbox"
+group "Tools"
+project "Xenith"
+	location "Xenith"
 	kind "ConsoleApp"
 	language "C++"
 
@@ -96,8 +102,7 @@ project "Sandbox"
 	{
 		"Xero/vendor/spdlog/include",
 		"Xero/src",
-
-		"%{IncludeDir.ImGui}",
+		"Xero/vendor"
 	}
 
 	files 
@@ -127,3 +132,4 @@ project "Sandbox"
 	filter "configurations:Dist"
 		defines "XO_DIST"
 		optimize "On"
+group ""
