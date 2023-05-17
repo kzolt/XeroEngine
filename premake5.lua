@@ -89,14 +89,15 @@ project "Sandbox"
 
 	links 
 	{
-		"Xero",
-		
+		"Xero"
 	}
 
 	includedirs
 	{
 		"Xero/vendor/spdlog/include",
-		"Xero/src"
+		"Xero/src",
+
+		"%{IncludeDir.ImGui}",
 	}
 
 	files 

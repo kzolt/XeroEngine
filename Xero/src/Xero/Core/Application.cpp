@@ -4,6 +4,8 @@
 
 #include "Xero/Platform/Vulkan/VulkanSwapchain.h"
 
+#include "imgui.h"
+
 namespace Xero {
 
 	#define BIND_EVENT_FN(fn) std::bind(&Application::##fn, this, std::placeholders::_1)
@@ -19,6 +21,9 @@ namespace Xero {
 
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		m_ImGuiLayer = ImGuiLayer::Create();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -34,6 +39,11 @@ namespace Xero {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
 
 			m_Window->GetSwapchain().BeginFrame();
 			m_Window->SwapBuffers();
@@ -57,11 +67,13 @@ namespace Xero {
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

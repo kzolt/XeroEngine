@@ -6,6 +6,7 @@
 
 #include "Xero/Events/Event.h"
 #include "Xero/Events/ApplicationEvent.h"
+#include "Xero/ImGui/ImGuiLayer.h"
 
 namespace Xero {
 
@@ -31,8 +32,10 @@ namespace Xero {
 
 	private:
 		Scope<Window> m_Window;
-		bool m_Running = true;
 		LayerStack m_LayerStack;
+		ImGuiLayer* m_ImGuiLayer;
+
+		bool m_Running = true;
 
 	private:
 		static Application* s_Instance;

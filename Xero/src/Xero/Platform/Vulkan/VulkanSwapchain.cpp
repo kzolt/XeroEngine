@@ -122,23 +122,23 @@ namespace Xero {
 		// Get available present modes
 		uint32_t presentModeCount;
 		VK_CHECK_RESULT(fpGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, m_Surface, &presentModeCount, NULL));
-		XO_ASSERT(presentModeCount > 0);
+		XO_CORE_ASSERT(presentModeCount > 0, "");
 
 		std::vector<VkPresentModeKHR> presentModes(presentModeCount);
 		VK_CHECK_RESULT(fpGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, m_Surface, &presentModeCount, presentModes.data()));
 
-		VkExtent2D swapchainExtent{};
-		// If width (and height) equals the special value 0xffffffff, the size of the surface will be set by the swapchain
+		VkExtent2D swapchainExtent = {};
+		// If width (and height) equals the special value 0xFFFFFFFF, the size of the surface will be set by the swapchain
 		if (surfCaps.currentExtent.width == (uint32_t)-1)
 		{
 			// If the surface size is undefined, the size is set to
-			// the size of the images requested
+			// the size of the images requested.
 			swapchainExtent.width = *width;
 			swapchainExtent.height = *height;
 		}
 		else
 		{
-			// If the surface size is defined, the swapchain size must match
+			// If the surface size is defined, the swap chain size must match
 			swapchainExtent = surfCaps.currentExtent;
 			*width = surfCaps.currentExtent.width;
 			*height = surfCaps.currentExtent.height;
@@ -149,12 +149,12 @@ namespace Xero {
 
 		// Select a present mode for the swapchain
 
-		// the VK_PRESENT_MODE_FIFO_KHR mode must always be present as per spec
-		// This mode waits for the vertical blank (v-sync)
+		// The VK_PRESENT_MODE_FIFO_KHR mode must always be present as per spec
+		// This mode waits for the vertical blank ("v-sync")
 		VkPresentModeKHR swapchainPresentMode = VK_PRESENT_MODE_FIFO_KHR;
 
 		// If v-sync is not requested, try to find a mailbox mode
-		// It's the lowest latency not-tearing present mode available
+		// It's the lowest latency non-tearing present mode available
 		if (!vsync)
 		{
 			for (size_t i = 0; i < presentModeCount; i++)
@@ -164,92 +164,101 @@ namespace Xero {
 					swapchainPresentMode = VK_PRESENT_MODE_MAILBOX_KHR;
 					break;
 				}
-
 				if ((swapchainPresentMode != VK_PRESENT_MODE_MAILBOX_KHR) && (presentModes[i] == VK_PRESENT_MODE_IMMEDIATE_KHR))
+				{
 					swapchainPresentMode = VK_PRESENT_MODE_IMMEDIATE_KHR;
+				}
 			}
 		}
 
 		// Determine the number of images
 		uint32_t desiredNumberOfSwapchainImages = surfCaps.minImageCount + 1;
 		if ((surfCaps.maxImageCount > 0) && (desiredNumberOfSwapchainImages > surfCaps.maxImageCount))
+		{
 			desiredNumberOfSwapchainImages = surfCaps.maxImageCount;
+		}
 
 		// Find the transformation of the surface
 		VkSurfaceTransformFlagsKHR preTransform;
 		if (surfCaps.supportedTransforms & VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR)
+		{
+			// We prefer a non-rotated transform
 			preTransform = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR;
+		}
 		else
+		{
 			preTransform = surfCaps.currentTransform;
+		}
 
 		// Find a supported composite alpha format (not all devices support alpha opaque)
 		VkCompositeAlphaFlagBitsKHR compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
-		// Simply select the first composite alpha format available;
+		// Simply select the first composite alpha format available
 		std::vector<VkCompositeAlphaFlagBitsKHR> compositeAlphaFlags = {
 			VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
 			VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR,
 			VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR,
-			VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR
+			VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR,
 		};
-
-		for (auto& compositeAlphaFlag : compositeAlphaFlags)
-		{
-			if (surfCaps.supportedCompositeAlpha & compositeAlpha)
-			{
+		for (auto& compositeAlphaFlag : compositeAlphaFlags) {
+			if (surfCaps.supportedCompositeAlpha & compositeAlphaFlag) {
 				compositeAlpha = compositeAlphaFlag;
 				break;
-			}
+			};
 		}
 
-		VkSwapchainCreateInfoKHR swapchainInfo{};
-		swapchainInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-		swapchainInfo.pNext = NULL;
-		swapchainInfo.surface = m_Surface;
-		swapchainInfo.minImageCount = desiredNumberOfSwapchainImages;
-		swapchainInfo.imageFormat = m_ColorFormat;
-		swapchainInfo.imageColorSpace = m_ColorSpace;
-		swapchainInfo.imageExtent = { swapchainExtent.width, swapchainExtent.height };
-		swapchainInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
-		swapchainInfo.preTransform = (VkSurfaceTransformFlagBitsKHR)preTransform;
-		swapchainInfo.imageArrayLayers = 1;
-		swapchainInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
-		swapchainInfo.queueFamilyIndexCount = 0;
-		swapchainInfo.pQueueFamilyIndices = NULL;
-		swapchainInfo.presentMode = swapchainPresentMode;
-		swapchainInfo.oldSwapchain = oldSwapchain;
-		// Setting clipped to VK_TRUE allows the implementation to discard rendering outside of the surface area 
-		swapchainInfo.clipped = VK_TRUE;
-		swapchainInfo.compositeAlpha = compositeAlpha;
+		VkSwapchainCreateInfoKHR swapchainCI = {};
+		swapchainCI.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
+		swapchainCI.pNext = NULL;
+		swapchainCI.surface = m_Surface;
+		swapchainCI.minImageCount = desiredNumberOfSwapchainImages;
+		swapchainCI.imageFormat = m_ColorFormat;
+		swapchainCI.imageColorSpace = m_ColorSpace;
+		swapchainCI.imageExtent = { swapchainExtent.width, swapchainExtent.height };
+		swapchainCI.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+		swapchainCI.preTransform = (VkSurfaceTransformFlagBitsKHR)preTransform;
+		swapchainCI.imageArrayLayers = 1;
+		swapchainCI.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
+		swapchainCI.queueFamilyIndexCount = 0;
+		swapchainCI.pQueueFamilyIndices = NULL;
+		swapchainCI.presentMode = swapchainPresentMode;
+		swapchainCI.oldSwapchain = oldSwapchain;
+		// Setting clipped to VK_TRUE allows the implementation to discard rendering outside of the surface area
+		swapchainCI.clipped = VK_TRUE;
+		swapchainCI.compositeAlpha = compositeAlpha;
 
-		// Enable transfer source on swapchain images if supported
-		if (surfCaps.supportedUsageFlags & VK_IMAGE_USAGE_TRANSFER_SRC_BIT)
-			swapchainInfo.imageUsage |= VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
+		// Enable transfer source on swap chain images if supported
+		if (surfCaps.supportedUsageFlags & VK_IMAGE_USAGE_TRANSFER_SRC_BIT) {
+			swapchainCI.imageUsage |= VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
+		}
 
-		// Enable transfer destination on swapchain images if supported
-		if (surfCaps.supportedUsageFlags & VK_IMAGE_USAGE_TRANSFER_DST_BIT)
-			swapchainInfo.imageUsage |= VK_IMAGE_USAGE_TRANSFER_DST_BIT;
+		// Enable transfer destination on swap chain images if supported
+		if (surfCaps.supportedUsageFlags & VK_IMAGE_USAGE_TRANSFER_DST_BIT) {
+			swapchainCI.imageUsage |= VK_IMAGE_USAGE_TRANSFER_DST_BIT;
+		}
 
-		VK_CHECK_RESULT(fpCreateSwapchainKHR(device, &swapchainInfo, nullptr, &m_Swapchain));
+		VK_CHECK_RESULT(fpCreateSwapchainKHR(device, &swapchainCI, nullptr, &m_Swapchain));
 
-		// If an existing swapchain is re-created, destroy the old swapchain
+		// If an existing swap chain is re-created, destroy the old swap chain
 		// This also cleans up all the presentable images
 		if (oldSwapchain != VK_NULL_HANDLE)
 		{
 			for (uint32_t i = 0; i < m_ImageCount; i++)
+			{
 				vkDestroyImageView(device, m_Buffers[i].View, nullptr);
+			}
 			fpDestroySwapchainKHR(device, oldSwapchain, nullptr);
 		}
 		VK_CHECK_RESULT(fpGetSwapchainImagesKHR(device, m_Swapchain, &m_ImageCount, NULL));
 
-		// Get the swapchain images
+		// Get the swap chain images
 		m_Images.resize(m_ImageCount);
 		VK_CHECK_RESULT(fpGetSwapchainImagesKHR(device, m_Swapchain, &m_ImageCount, m_Images.data()));
 
-		// Get the swapchain buffers containing the image and image view
+		// Get the swap chain buffers containing the image and imageview
 		m_Buffers.resize(m_ImageCount);
 		for (uint32_t i = 0; i < m_ImageCount; i++)
 		{
-			VkImageViewCreateInfo colorAttachmentView{};
+			VkImageViewCreateInfo colorAttachmentView = {};
 			colorAttachmentView.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 			colorAttachmentView.pNext = NULL;
 			colorAttachmentView.format = m_ColorFormat;
@@ -257,7 +266,7 @@ namespace Xero {
 				VK_COMPONENT_SWIZZLE_R,
 				VK_COMPONENT_SWIZZLE_G,
 				VK_COMPONENT_SWIZZLE_B,
-				VK_COMPONENT_SWIZZLE_A,
+				VK_COMPONENT_SWIZZLE_A
 			};
 			colorAttachmentView.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 			colorAttachmentView.subresourceRange.baseMipLevel = 0;
@@ -268,6 +277,7 @@ namespace Xero {
 			colorAttachmentView.flags = 0;
 
 			m_Buffers[i].Image = m_Images[i];
+
 			colorAttachmentView.image = m_Buffers[i].Image;
 
 			VK_CHECK_RESULT(vkCreateImageView(device, &colorAttachmentView, nullptr, &m_Buffers[i].View));
@@ -275,16 +285,16 @@ namespace Xero {
 
 		CreateDrawBuffers();
 
-		//////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Synchronization Objects
-		//////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		VkSemaphoreCreateInfo semaphoreCreateInfo{};
 		semaphoreCreateInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 		// Create a semaphore used to synchronize image presentation
-		// Ensures that the image is displayed before we start submitting new commands to the queue
+		// Ensures that the image is displayed before we start submitting new commands to the queu
 		VK_CHECK_RESULT(vkCreateSemaphore(m_Device->GetVulkanDevice(), &semaphoreCreateInfo, nullptr, &m_Semaphores.PresentComplete));
 		// Create a semaphore used to synchronize command submission
-		// Ensures that the image is not presented until all commands have been submitted and executed
+		// Ensures that the image is not presented until all commands have been sumbitted and executed
 		VK_CHECK_RESULT(vkCreateSemaphore(m_Device->GetVulkanDevice(), &semaphoreCreateInfo, nullptr, &m_Semaphores.RenderComplete));
 
 		// Set up submit info structure
@@ -306,17 +316,16 @@ namespace Xero {
 		fenceCreateInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 		m_WaitFences.resize(m_DrawCommandBuffers.size());
 		for (auto& fence : m_WaitFences)
+		{
 			VK_CHECK_RESULT(vkCreateFence(m_Device->GetVulkanDevice(), &fenceCreateInfo, nullptr, &fence));
+		}
 
 		CreateDepthStencil();
 
 		VkFormat depthFormat = m_Device->GetPhysicalDevice()->GetDepthFormat();
 
-		//////////////////////////////////////////////////////////////////////////
 		// Render Pass
-		//////////////////////////////////////////////////////////////////////////
-		// Render Pass
-		std::array<VkAttachmentDescription, 2> attachments{};
+		std::array<VkAttachmentDescription, 2> attachments = {};
 		// Color attachment
 		attachments[0].format = m_ColorFormat;
 		attachments[0].samples = VK_SAMPLE_COUNT_1_BIT;
@@ -336,11 +345,11 @@ namespace Xero {
 		attachments[1].initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 		attachments[1].finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
-		VkAttachmentReference colorReference{};
+		VkAttachmentReference colorReference = {};
 		colorReference.attachment = 0;
 		colorReference.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
-		VkAttachmentReference depthReference{};
+		VkAttachmentReference depthReference = {};
 		depthReference.attachment = 1;
 		depthReference.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
@@ -420,7 +429,7 @@ namespace Xero {
 		// Pipeline stage at which the queue submission will wait (via pWaitSemaphores)
 		VkPipelineStageFlags waitStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
 		// The submit info structure specifies a command buffer queue submission batch
-		VkSubmitInfo submitInfo{};
+		VkSubmitInfo submitInfo = {};
 		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 		submitInfo.pWaitDstStageMask = &waitStageMask;
 		submitInfo.pWaitSemaphores = &m_Semaphores.PresentComplete;
@@ -431,19 +440,18 @@ namespace Xero {
 		submitInfo.commandBufferCount = 1;
 
 		// Submit to the graphics queue passing a wait fence
-		VK_CHECK_RESULT(vkQueueSubmit(m_Device->GetGraphicsQueue(), 1, &m_SubmitInfo, m_WaitFences[m_CurrentBufferIndex]));
+		VK_CHECK_RESULT(vkQueueSubmit(m_Device->GetGraphicsQueue(), 1, &submitInfo, m_WaitFences[m_CurrentBufferIndex]));
 
 		// Present the current buffer to the swap chain
-		// Pass the semaphore signaled by the command buffer submission from the submit info as thee wait semaphore for swap chain presentation
+		// Pass the semaphore signaled by the command buffer submission from the submit info as the wait semaphore for swap chain presentation
 		// This ensures that the image is not presented to the windowing system until all commands have been submitted
-
 		VkResult result = QueuePresent(m_Device->GetGraphicsQueue(), m_CurrentBufferIndex, m_Semaphores.RenderComplete);
 
 		if (result != VK_SUCCESS || result == VK_SUBOPTIMAL_KHR)
 		{
 			if (result == VK_ERROR_OUT_OF_DATE_KHR)
 			{
-				// swap chain is no longer compatible with the surface and needs to be recreated
+				// Swap chain is no longer compatible with the surface and needs to be recreated
 				OnResize(m_Width, m_Height);
 				return;
 			}
@@ -565,20 +573,22 @@ namespace Xero {
 
 	void VulkanSwapchain::CreateDrawBuffers()
 	{
+		// Create one command buffer for each swap chain image and reuse for rendering
 		m_DrawCommandBuffers.resize(m_ImageCount);
 
-		VkCommandPoolCreateInfo cmdPoolInfo{};
+		// TODO: Move this somewhere maybe?
+		VkCommandPoolCreateInfo cmdPoolInfo = {};
 		cmdPoolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 		cmdPoolInfo.queueFamilyIndex = m_QueueNodeIndex;
 		cmdPoolInfo.flags = VK_COMMAND_POOL_CREATE_TRANSIENT_BIT | VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 		VK_CHECK_RESULT(vkCreateCommandPool(m_Device->GetVulkanDevice(), &cmdPoolInfo, nullptr, &m_CommandPool));
 
-		VkCommandBufferAllocateInfo commandBufferAllocInfo{};
-		commandBufferAllocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-		commandBufferAllocInfo.commandPool = m_CommandPool;
-		commandBufferAllocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-		commandBufferAllocInfo.commandBufferCount = static_cast<uint32_t>(m_DrawCommandBuffers.size());
-		VK_CHECK_RESULT(vkAllocateCommandBuffers(m_Device->GetVulkanDevice(), &commandBufferAllocInfo, m_DrawCommandBuffers.data()));
+		VkCommandBufferAllocateInfo commandBufferAllocateInfo{};
+		commandBufferAllocateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+		commandBufferAllocateInfo.commandPool = m_CommandPool;
+		commandBufferAllocateInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+		commandBufferAllocateInfo.commandBufferCount = static_cast<uint32_t>(m_DrawCommandBuffers.size());
+		VK_CHECK_RESULT(vkAllocateCommandBuffers(m_Device->GetVulkanDevice(), &commandBufferAllocateInfo, m_DrawCommandBuffers.data()));
 	}
 
 	void VulkanSwapchain::FindImageFormatAndColorSpace()
