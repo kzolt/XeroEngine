@@ -6,6 +6,8 @@
 
 #include "imgui.h"
 
+#include <glfw/glfw3.h>
+
 namespace Xero {
 
 	#define BIND_EVENT_FN(fn) std::bind(&Application::##fn, this, std::placeholders::_1)
@@ -35,18 +37,25 @@ namespace Xero {
 	{
 		while (m_Running)
 		{
-			m_Window->ProcessEvent();
+			if (!m_Minimized)
+			{
+				m_Window->ProcessEvent();
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(m_TimeStep);
 
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
+				m_ImGuiLayer->Begin();
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
+				m_ImGuiLayer->End();
 
-			m_Window->GetSwapchain().BeginFrame();
-			m_Window->SwapBuffers();
+				m_Window->GetSwapchain().BeginFrame();
+				m_Window->SwapBuffers();
+			}
+
+			float time = GetTime();
+			m_TimeStep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
 		}
 	}
 
@@ -74,6 +83,11 @@ namespace Xero {
 	{
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
+	}
+
+	float Application::GetTime() const
+	{
+		return (float)glfwGetTime(); // TODO: Should be in PLATFORM
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

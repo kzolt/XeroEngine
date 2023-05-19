@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Xero/Core/Core.h"
+#include "Xero/Core/Timestep.h"
+
 #include "Xero/Events/Event.h"
 
 namespace Xero {
@@ -12,7 +14,7 @@ namespace Xero {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

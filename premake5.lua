@@ -14,6 +14,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Xero/vendor/GLFW/include"
 IncludeDir["ImGui"] = "Xero/vendor/ImGui"
+IncludeDir["glm"] = "Xero/vendor/glm"
 IncludeDir["Vulkan"] = "Xero/vendor/Vulkan/Include"
 
 LibraryDir = {}
@@ -50,7 +51,8 @@ project "Xero"
 		"Xero/src",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.Vulkan}"
+		"%{IncludeDir.Vulkan}",
+		"%{IncludeDir.glm}"
 	}
 
 	files 
@@ -78,7 +80,6 @@ project "Xero"
 		defines "XO_RELEASE"
 		optimize "On"
 
-
 	filter "configurations:Dist"
 		defines "XO_DIST"
 		optimize "On"
@@ -102,7 +103,8 @@ project "Xenith"
 	{
 		"Xero/vendor/spdlog/include",
 		"Xero/src",
-		"Xero/vendor"
+		"Xero/vendor",
+		"%{IncludeDir.glm}"
 	}
 
 	files 

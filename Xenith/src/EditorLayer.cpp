@@ -8,11 +8,6 @@ namespace Xero {
 
 	}
 
-	EditorLayer::~EditorLayer()
-	{
-
-	}
-
 	void EditorLayer::OnAttach()
 	{
 
@@ -23,15 +18,14 @@ namespace Xero {
 
 	}
 
-	void EditorLayer::OnUpdate()
+	void EditorLayer::OnUpdate(Timestep ts)
 	{
 
 	}
 
 	void EditorLayer::OnImGuiRender()
 	{
-		bool show = true;
-		ImGui::ShowDemoWindow(&show);
+		
 	}
 
 	void EditorLayer::OnEvent(Event& event)

@@ -24,6 +24,8 @@ namespace Xero {
 
 		inline Window& GetWindow() { return *m_Window; }
 
+		float GetTime() const;
+
 	public:
 		inline static Application& Get() { return *s_Instance; }
 
@@ -34,8 +36,10 @@ namespace Xero {
 		Scope<Window> m_Window;
 		LayerStack m_LayerStack;
 		ImGuiLayer* m_ImGuiLayer;
+		Timestep m_TimeStep;
 
-		bool m_Running = true;
+		bool m_Running = true, m_Minimized = false;
+		float m_LastFrameTime = 0.0f;
 
 	private:
 		static Application* s_Instance;

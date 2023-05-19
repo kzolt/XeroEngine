@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <utility>
 #include <algorithm>
@@ -15,6 +16,7 @@
 #include "Xero/Core/Core.h"
 #include "Xero/Core/Application.h"
 #include "Xero/Core/Ref.h"
+#include "Xero/Core/Timestep.h"
 
 #ifdef XO_PLATFORM_WINDOWS
 	#include <Windows.h>

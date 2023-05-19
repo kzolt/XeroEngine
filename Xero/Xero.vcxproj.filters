@@ -60,6 +60,9 @@
     <ClInclude Include="src\Xero\Core\Entrypoint.h">
       <Filter>src\Xero\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Xero\Core\Input.h">
+      <Filter>src\Xero\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Xero\Core\KeyCodes.h">
       <Filter>src\Xero\Core</Filter>
     </ClInclude>
@@ -129,7 +132,11 @@
     <ClInclude Include="src\xopch.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Xero\Core\Input.h" />
+    <ClInclude Include="src\Xero\Core\Timestep.h" />
+    <ClInclude Include="src\Xero\Renderer\Shader.h" />
+    <ClInclude Include="src\Xero\Platform\Vulkan\VulkanShader.h" />
+    <ClInclude Include="src\Xero\Core\Hash.h" />
+    <ClInclude Include="src\Xero\Renderer\ShaderUniform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Xero\Core\Application.cpp">
@@ -168,6 +175,9 @@
     <ClCompile Include="src\Xero\Platform\Vulkan\VulkanSwapchain.cpp">
       <Filter>src\Xero\Platform\Vulkan</Filter>
     </ClCompile>
+    <ClCompile Include="src\Xero\Platform\Windows\WindowsInput.cpp">
+      <Filter>src\Xero\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Xero\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Xero\Platform\Windows</Filter>
     </ClCompile>
@@ -189,6 +199,9 @@
     <ClCompile Include="vendor\Vulkan\Include\vma\vk_mem_alloc.cpp">
       <Filter>vendor\Vulkan\Include\vma</Filter>
     </ClCompile>
-    <ClCompile Include="src\Xero\Platform\Windows\WindowsInput.cpp" />
+    <ClCompile Include="src\Xero\Core\Timestep.cpp" />
+    <ClCompile Include="src\Xero\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Xero\Platform\Vulkan\VulkanShader.cpp" />
+    <ClCompile Include="src\Xero\Core\Hash.cpp" />
   </ItemGroup>
 </Project>
